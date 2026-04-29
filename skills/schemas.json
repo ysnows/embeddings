@@ -2,7 +2,7 @@
   {
     "name": "embed",
     "title": "embed",
-    "description": "",
+    "description": "Generate embeddings for one or more input strings using the configured embeddings provider. Returns an OpenAI-compatible response: `{ object: \"list\", data: [{ object, index, embedding }], model, usage }`.",
     "routePath": "embeddings/embed",
     "parameters": {
       "type": "object",
@@ -12,11 +12,11 @@
             "string",
             "array"
           ],
-          "description": ""
+          "description": "Input text to embed — a single string or an array of strings for batch embedding"
         },
         "model": {
           "type": "string",
-          "description": ""
+          "description": "Model name echoed back in the response. The active embedding model is determined by the configured provider."
         }
       },
       "required": [

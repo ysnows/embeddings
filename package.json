@@ -174,7 +174,7 @@
     },
     {
       "name": "qwen3",
-      "title": "Qwen3",
+      "title": "Qwen3 (mlx)",
       "description": "Local on-device embeddings using [Qwen3-Embedding](https://huggingface.co/Qwen) on Apple Silicon — runs entirely offline through the `mlx_manage` extension. Multilingual, instruction-aware. The model is pulled from HuggingFace on first use.",
       "icon": "qwen3.png",
       "commandType": "provider",
@@ -205,7 +205,7 @@
     },
     {
       "name": "embeddinggemma",
-      "title": "Gemma",
+      "title": "Gemma (mlx)",
       "description": "Local on-device embeddings using [EmbeddingGemma](https://huggingface.co/google/embeddinggemma-300m) on Apple Silicon — runs entirely offline through the `mlx_manage` extension. Compact 300M multilingual model. The model is pulled from HuggingFace on first use.",
       "icon": "embeddinggemma.png",
       "commandType": "provider",
@@ -221,6 +221,37 @@
           "title": "Model",
           "default": "mlx-community/embeddinggemma-300m-4bit",
           "dataProxy": "embeddings/mlx_embeddings/embeddinggemma/models"
+        },
+        {
+          "name": "concurrency",
+          "visibility": "hidden",
+          "description": "Number of concurrent embeddings. Local MLX runs sequentially per-process — keep low.",
+          "type": "number",
+          "required": false,
+          "title": "Concurrency",
+          "default": 1
+        }
+      ],
+      "private": true
+    },
+    {
+      "name": "jina-mlx",
+      "title": "Jina (mlx)",
+      "description": "Local on-device embeddings using [Jina Embeddings v5](https://huggingface.co/jinaai) on Apple Silicon — runs entirely offline through the `mlx_manage` extension. Multilingual text embeddings. The model is pulled from HuggingFace on first use.",
+      "icon": "jina.jpg",
+      "commandType": "provider",
+      "provider_category": "embeddings",
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "modelName",
+          "description": "Pick a Jina Embeddings v5 variant. Nano for speed, Small for higher quality.",
+          "type": "dropdown",
+          "style": "mlx-embeddings",
+          "required": false,
+          "title": "Model",
+          "default": "jinaai/jina-embeddings-v5-text-nano-mlx",
+          "dataProxy": "embeddings/mlx_embeddings/jina/models"
         },
         {
           "name": "concurrency",

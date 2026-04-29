@@ -13,6 +13,7 @@ export const embeddingGemmaModels = [
     supports_streaming: false,
     dimension: 768,
     context: 2048,
+    download_size: "203 MB",
   },
   {
     title: "EmbeddingGemma 300M (8bit)",
@@ -26,6 +27,7 @@ export const embeddingGemmaModels = [
     supports_streaming: false,
     dimension: 768,
     context: 2048,
+    download_size: "349 MB",
   },
 ];
 

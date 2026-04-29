@@ -13,6 +13,7 @@ export const qwen3EmbeddingModels = [
     supports_streaming: false,
     dimension: 1024,
     context: 32768,
+    download_size: "335 MB",
   },
   {
     title: "Qwen3-Embedding 0.6B (mxfp8)",
@@ -26,6 +27,7 @@ export const qwen3EmbeddingModels = [
     supports_streaming: false,
     dimension: 1024,
     context: 32768,
+    download_size: "600 MB",
   },
   {
     title: "Qwen3-Embedding 4B (4bit DWQ)",
@@ -39,6 +41,7 @@ export const qwen3EmbeddingModels = [
     supports_streaming: false,
     dimension: 2560,
     context: 32768,
+    download_size: "2.1 GB",
   },
   {
     title: "Qwen3-Embedding 8B (4bit DWQ)",
@@ -52,6 +55,7 @@ export const qwen3EmbeddingModels = [
     supports_streaming: false,
     dimension: 4096,
     context: 32768,
+    download_size: "4.0 GB",
   },
 ];
 
