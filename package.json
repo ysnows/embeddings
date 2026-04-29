@@ -174,7 +174,7 @@
     },
     {
       "name": "qwen3",
-      "title": "Qwen3-Embedding (Local)",
+      "title": "Qwen3",
       "description": "Local on-device embeddings using [Qwen3-Embedding](https://huggingface.co/Qwen) on Apple Silicon — runs entirely offline through the `mlx_manage` extension. Multilingual, instruction-aware. The model is pulled from HuggingFace on first use.",
       "icon": "qwen3.png",
       "commandType": "provider",
@@ -205,7 +205,7 @@
     },
     {
       "name": "embeddinggemma",
-      "title": "EmbeddingGemma (Local)",
+      "title": "Gemma",
       "description": "Local on-device embeddings using [EmbeddingGemma](https://huggingface.co/google/embeddinggemma-300m) on Apple Silicon — runs entirely offline through the `mlx_manage` extension. Compact 300M multilingual model. The model is pulled from HuggingFace on first use.",
       "icon": "embeddinggemma.png",
       "commandType": "provider",

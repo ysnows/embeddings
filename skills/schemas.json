@@ -1,5 +1,30 @@
 [
   {
+    "name": "embed",
+    "title": "embed",
+    "description": "",
+    "routePath": "embeddings/embed",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": [
+            "string",
+            "array"
+          ],
+          "description": ""
+        },
+        "model": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "input"
+      ]
+    }
+  },
+  {
     "name": "models",
     "title": "models",
     "description": "Router for models",
@@ -13,16 +38,6 @@
           "required": []
         },
         "routePath": "embeddings/models/enconvo_ai"
-      },
-      {
-        "name": "mlx",
-        "description": "",
-        "parameters": {
-          "type": "object",
-          "properties": {},
-          "required": []
-        },
-        "routePath": "embeddings/models/mlx"
       },
       {
         "name": "ollama",
