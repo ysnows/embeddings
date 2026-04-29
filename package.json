@@ -1,0 +1,303 @@
+{
+  "$schema": "https://enconvo.com/schemas/extension.json",
+  "name": "embeddings",
+  "version": "1.0.12",
+  "description": "Embedding provider integrations for OpenAI, Voyage AI, Ollama, SiliconFlow, and Enconvo Cloud Plan, with model management APIs.",
+  "title": "Embedding Providers",
+  "icon": "icon.png",
+  "author": "EnconvoAI",
+  "license": "MIT",
+  "categories": [
+    "Provider"
+  ],
+  "type": "module",
+  "commands": [
+    {
+      "name": "enconvo_ai",
+      "title": "EnConvo Cloud Plan",
+      "description": "Embedding with Enconvo Cloud Plan , learn more : [docs](https://docs.enconvo.com/docs/providers/embedding)",
+      "icon": "enconvo.png",
+      "commandType": "provider",
+      "provider_category": "embeddings",
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "modelName",
+          "description": "The model to generate the completion.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Model Name",
+          "default": "voyage/voyage-4-lite",
+          "dataProxy": "embeddings/models/enconvo_ai"
+        },
+        {
+          "name": "concurrency",
+          "visibility": "hidden",
+          "description": "Number of concurrent embeddings. Higher numbers mean faster processing but should be adjusted based on provider's rate limit",
+          "type": "number",
+          "required": false,
+          "title": "Concurrency",
+          "default": 30
+        }
+      ],
+      "private": true
+    },
+    {
+      "name": "open_ai",
+      "title": "OpenAI",
+      "description": "Embedding with openAI",
+      "icon": "openai.png",
+      "commandType": "provider",
+      "provider_category": "embeddings",
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
+          "required": false,
+          "default": "open_ai",
+          "extensionType": "credentials-provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|open_ai"
+            ]
+          },
+          "title": "Credential Provider"
+        },
+        {
+          "name": "modelName",
+          "description": "The model to generate the completion.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Model Name",
+          "default": "text-embedding-3-small",
+          "dataProxy": "embeddings/models/open_ai"
+        },
+        {
+          "name": "concurrency",
+          "visibility": "hidden",
+          "description": "Number of concurrent embeddings. Higher numbers mean faster processing but should be adjusted based on provider's rate limit",
+          "type": "number",
+          "required": false,
+          "title": "Concurrency",
+          "default": 10
+        }
+      ],
+      "private": true
+    },
+    {
+      "name": "ollama",
+      "title": "Ollama",
+      "description": "Embedding with Local Embeddings Powered by Ollama",
+      "icon": "ollama.png",
+      "commandType": "provider",
+      "provider_category": "embeddings",
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
+          "required": false,
+          "default": "ollama",
+          "extensionType": "credentials-provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|ollama"
+            ]
+          },
+          "title": "Credential Provider"
+        },
+        {
+          "name": "modelName",
+          "description": "The model to generate the completion.",
+          "type": "dropdown",
+          "title": "Model Name",
+          "default": "embeddinggemma:latest",
+          "dataProxy": "embeddings/models/ollama"
+        },
+        {
+          "name": "concurrency",
+          "visibility": "hidden",
+          "description": "Number of concurrent embeddings. Higher numbers mean faster processing but should be adjusted based on provider's rate limit",
+          "type": "number",
+          "title": "Concurrency",
+          "default": 3
+        }
+      ],
+      "private": true
+    },
+    {
+      "name": "voyage",
+      "title": "Voyage AI",
+      "description": "Embedding with Voyage AI",
+      "icon": "voyage.png",
+      "commandType": "provider",
+      "provider_category": "embeddings",
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
+          "required": false,
+          "default": "voyage",
+          "extensionType": "credentials-provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|voyage"
+            ]
+          },
+          "title": "Credential Provider"
+        },
+        {
+          "name": "modelName",
+          "description": "The model to generate the completion.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Model Name",
+          "default": "voyage-3.5-lite",
+          "dataProxy": "embeddings/models/voyage"
+        },
+        {
+          "name": "concurrency",
+          "visibility": "hidden",
+          "description": "Number of concurrent embeddings. Higher numbers mean faster processing but should be adjusted based on provider's rate limit",
+          "type": "number",
+          "required": false,
+          "title": "Concurrency",
+          "default": 10
+        }
+      ],
+      "private": true
+    },
+    {
+      "name": "qwen3",
+      "title": "Qwen3-Embedding (Local)",
+      "description": "Local on-device embeddings using [Qwen3-Embedding](https://huggingface.co/Qwen) on Apple Silicon — runs entirely offline through the `mlx_manage` extension. Multilingual, instruction-aware. The model is pulled from HuggingFace on first use.",
+      "icon": "qwen3.png",
+      "commandType": "provider",
+      "provider_category": "embeddings",
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "modelName",
+          "description": "Pick a Qwen3-Embedding variant. 0.6B for speed, 4B/8B for quality.",
+          "type": "dropdown",
+          "style": "mlx-embeddings",
+          "required": false,
+          "title": "Model",
+          "default": "mlx-community/Qwen3-Embedding-0.6B-4bit-DWQ",
+          "dataProxy": "embeddings/mlx_embeddings/qwen3/models"
+        },
+        {
+          "name": "concurrency",
+          "visibility": "hidden",
+          "description": "Number of concurrent embeddings. Local MLX runs sequentially per-process — keep low.",
+          "type": "number",
+          "required": false,
+          "title": "Concurrency",
+          "default": 1
+        }
+      ],
+      "private": true
+    },
+    {
+      "name": "embeddinggemma",
+      "title": "EmbeddingGemma (Local)",
+      "description": "Local on-device embeddings using [EmbeddingGemma](https://huggingface.co/google/embeddinggemma-300m) on Apple Silicon — runs entirely offline through the `mlx_manage` extension. Compact 300M multilingual model. The model is pulled from HuggingFace on first use.",
+      "icon": "embeddinggemma.png",
+      "commandType": "provider",
+      "provider_category": "embeddings",
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "modelName",
+          "description": "Pick an EmbeddingGemma variant. 4bit for fastest local inference, 8bit for balanced quality/speed.",
+          "type": "dropdown",
+          "style": "mlx-embeddings",
+          "required": false,
+          "title": "Model",
+          "default": "mlx-community/embeddinggemma-300m-4bit",
+          "dataProxy": "embeddings/mlx_embeddings/embeddinggemma/models"
+        },
+        {
+          "name": "concurrency",
+          "visibility": "hidden",
+          "description": "Number of concurrent embeddings. Local MLX runs sequentially per-process — keep low.",
+          "type": "number",
+          "required": false,
+          "title": "Concurrency",
+          "default": 1
+        }
+      ],
+      "private": true
+    },
+    {
+      "name": "siliconflow",
+      "title": "SiliconFlow",
+      "description": "Embedding with [SiliconFlow](https://siliconflow.cn)",
+      "icon": "siliconflow.png",
+      "commandType": "provider",
+      "provider_category": "embeddings",
+      "mode": "no-view",
+      "targetCommand": "embeddings|open_ai",
+      "preferences": [
+        {
+          "name": "credentials",
+          "description": "The key management provider to use",
+          "type": "extension",
+          "required": false,
+          "default": "siliconflow",
+          "extensionType": "credentials-provider",
+          "extensionFilter": {
+            "targetCommands": [
+              "credentials|siliconflow"
+            ]
+          },
+          "title": "Credential Provider"
+        },
+        {
+          "name": "modelName",
+          "description": "The model to generate the embedding.",
+          "type": "dropdown",
+          "required": false,
+          "title": "Model Name",
+          "default": "BAAI/bge-m3",
+          "dataProxy": "embeddings/models/siliconflow"
+        },
+        {
+          "name": "concurrency",
+          "visibility": "hidden",
+          "description": "Number of concurrent embeddings. Higher numbers mean faster processing but should be adjusted based on provider's rate limit",
+          "type": "number",
+          "required": false,
+          "title": "Concurrency",
+          "default": 10
+        }
+      ],
+      "private": true
+    }
+  ],
+  "dependencies": {
+    "@enconvo/api": "link:../../enconvo.nodejs/enconvo_api",
+    "openai": "^4.86.1",
+    "ollama": "^0.5.18"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "eslint": "^8.57.0",
+    "prettier": "^2.8.8",
+    "typescript": "^5.4.5"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "lint:fix": "npm run lint --fix",
+    "format": "prettier --write \"**/*.ts\"",
+    "format:check": "prettier --list-different \"**/*.ts\"",
+    "build": "enconvo dev",
+    "dev": "enconvo dev --dev"
+  },
+  "minAppVersion": "1.8.8"
+}

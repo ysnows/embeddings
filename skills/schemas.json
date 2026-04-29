@@ -1,0 +1,69 @@
+[
+  {
+    "name": "models",
+    "title": "models",
+    "description": "Router for models",
+    "routes": [
+      {
+        "name": "enconvo_ai",
+        "description": "",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "routePath": "embeddings/models/enconvo_ai"
+      },
+      {
+        "name": "mlx",
+        "description": "",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "routePath": "embeddings/models/mlx"
+      },
+      {
+        "name": "ollama",
+        "description": "",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "routePath": "embeddings/models/ollama"
+      },
+      {
+        "name": "open_ai",
+        "description": "",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "routePath": "embeddings/models/open_ai"
+      },
+      {
+        "name": "siliconflow",
+        "description": "",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "routePath": "embeddings/models/siliconflow"
+      },
+      {
+        "name": "voyage",
+        "description": "",
+        "parameters": {
+          "type": "object",
+          "properties": {},
+          "required": []
+        },
+        "routePath": "embeddings/models/voyage"
+      }
+    ]
+  }
+]
