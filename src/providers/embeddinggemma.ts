@@ -1,6 +1,6 @@
 import { EmbeddingsProvider } from "@enconvo/api";
 
-const MLX_BASE_URL = "http://127.0.0.1:54535/mlx_manage/mlx_embeddings";
+const OMLX_BASE_URL = "http://127.0.0.1:54536";
 const DEFAULT_MODEL = "mlx-community/embeddinggemma-300m-4bit";
 
 export default function main(options: EmbeddingsProvider.EmbeddingsOptions) {
@@ -21,13 +21,13 @@ export class EmbeddingGemmaProvider extends EmbeddingsProvider {
     };
     const modelId = opts.modelName?.value || DEFAULT_MODEL;
 
-    const resp = await fetch(`${MLX_BASE_URL}/embed`, {
+    const resp = await fetch(`${OMLX_BASE_URL}/v1/embeddings`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        hf_model_id: modelId,
-        text: input,
-        normalize: true,
+        model: modelId,
+        input,
+        encoding_format: "float",
       }),
     });
 
@@ -38,12 +38,17 @@ export class EmbeddingGemmaProvider extends EmbeddingsProvider {
       );
     }
 
-    const data = (await resp.json()) as { embeddings?: number[][] };
-    if (!data.embeddings || !Array.isArray(data.embeddings)) {
+    const data = (await resp.json()) as {
+      data?: { index: number; embedding: number[] }[];
+    };
+    if (!data.data || !Array.isArray(data.data)) {
       throw new Error(
-        "MLX EmbeddingGemma: malformed response — missing 'embeddings' array"
+        "MLX EmbeddingGemma: malformed response — missing 'data' array"
       );
     }
-    return data.embeddings;
+    return data.data
+      .slice()
+      .sort((a, b) => a.index - b.index)
+      .map((item) => item.embedding);
   }
 }
