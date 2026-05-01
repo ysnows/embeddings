@@ -13,10 +13,6 @@
             "array"
           ],
           "description": "Input text to embed — a single string or an array of strings for batch embedding"
-        },
-        "model": {
-          "type": "string",
-          "description": "Model name echoed back in the response. The active embedding model is determined by the configured provider."
         }
       },
       "required": [

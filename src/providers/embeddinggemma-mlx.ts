@@ -1,6 +1,5 @@
-import { EmbeddingsProvider } from "@enconvo/api";
+import { EmbeddingsProvider, NativeAPI } from "@enconvo/api";
 
-const OMLX_BASE_URL = "http://127.0.0.1:54536";
 const DEFAULT_MODEL = "mlx-community/embeddinggemma-300m-4bit";
 
 export default function main(options: EmbeddingsProvider.EmbeddingsOptions) {
@@ -12,6 +11,17 @@ export class EmbeddingGemmaProvider extends EmbeddingsProvider {
     super(params);
   }
 
+  async preload(): Promise<void> {
+    const opts = this.options as EmbeddingsProvider.EmbeddingsOptions & {
+      modelName?: { value: string };
+    };
+    const modelId = opts.modelName?.value || DEFAULT_MODEL;
+    await NativeAPI.localApi("mlx_manage/model/load", {
+      model_id: modelId,
+      category: "embedding",
+    }).catch(() => undefined);
+  }
+
   protected async _embed(
     input: string[],
     _?: EmbeddingsProvider.EmbeddingsOptions
@@ -21,14 +31,9 @@ export class EmbeddingGemmaProvider extends EmbeddingsProvider {
     };
     const modelId = opts.modelName?.value || DEFAULT_MODEL;
 
-    const resp = await fetch(`${OMLX_BASE_URL}/v1/embeddings`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: modelId,
-        input,
-        encoding_format: "float",
-      }),
+    const resp = await NativeAPI.localApi("mlx_manage/mlx_embeddings/embed", {
+      hf_model_id: modelId,
+      text: input,
     });
 
     if (!resp.ok) {
@@ -39,16 +44,13 @@ export class EmbeddingGemmaProvider extends EmbeddingsProvider {
     }
 
     const data = (await resp.json()) as {
-      data?: { index: number; embedding: number[] }[];
+      embeddings?: number[][];
     };
-    if (!data.data || !Array.isArray(data.data)) {
+    if (!data.embeddings || !Array.isArray(data.embeddings)) {
       throw new Error(
-        "MLX EmbeddingGemma: malformed response — missing 'data' array"
+        "MLX EmbeddingGemma: malformed response — missing 'embeddings' array"
       );
     }
-    return data.data
-      .slice()
-      .sort((a, b) => a.index - b.index)
-      .map((item) => item.embedding);
+    return data.embeddings;
   }
 }

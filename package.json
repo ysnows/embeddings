@@ -173,7 +173,7 @@
       "private": true
     },
     {
-      "name": "qwen3",
+      "name": "qwen3-mlx",
       "title": "Qwen3 (mlx)",
       "description": "Local on-device embeddings using [Qwen3-Embedding](https://huggingface.co/Qwen) on Apple Silicon — runs entirely offline through the `mlx_manage` extension. Multilingual, instruction-aware. The model is pulled from HuggingFace on first use.",
       "icon": "qwen3.png",
@@ -185,7 +185,7 @@
           "name": "modelName",
           "description": "Pick a Qwen3-Embedding variant. 0.6B for speed, 4B/8B for quality.",
           "type": "dropdown",
-          "style": "mlx",
+          "style": "mlx-embedding",
           "required": false,
           "title": "Model",
           "default": "mlx-community/Qwen3-Embedding-0.6B-4bit-DWQ",
@@ -204,7 +204,7 @@
       "private": true
     },
     {
-      "name": "embeddinggemma",
+      "name": "embeddinggemma-mlx",
       "title": "Gemma (mlx)",
       "description": "Local on-device embeddings using [EmbeddingGemma](https://huggingface.co/google/embeddinggemma-300m) on Apple Silicon — runs entirely offline through the `mlx_manage` extension. Compact 300M multilingual model. The model is pulled from HuggingFace on first use.",
       "icon": "embeddinggemma.png",
@@ -216,7 +216,7 @@
           "name": "modelName",
           "description": "Pick an EmbeddingGemma variant. 4bit for fastest local inference, 8bit for balanced quality/speed.",
           "type": "dropdown",
-          "style": "mlx",
+          "style": "mlx-embedding",
           "required": false,
           "title": "Model",
           "default": "mlx-community/embeddinggemma-300m-4bit",
@@ -247,7 +247,7 @@
           "name": "modelName",
           "description": "Pick a Jina Embeddings v5 variant. Nano for speed, Small for higher quality.",
           "type": "dropdown",
-          "style": "mlx",
+          "style": "mlx-embedding",
           "required": false,
           "title": "Model",
           "default": "jinaai/jina-embeddings-v5-text-nano-mlx",
@@ -330,5 +330,11 @@
     "build": "enconvo dev",
     "dev": "enconvo dev --dev"
   },
-  "minAppVersion": "1.8.8"
+  "minAppVersion": "1.8.8",
+  "lifecycle": {
+    "onAppStarted": {
+      "type": "api",
+      "path": "embeddings/on_app_started"
+    }
+  }
 }

@@ -16,20 +16,6 @@ export const qwen3EmbeddingModels = [
     download_size: "335 MB",
   },
   {
-    title: "Qwen3-Embedding 0.6B (mxfp8)",
-    value: "mlx-community/Qwen3-Embedding-0.6B-mxfp8",
-    id: "mlx-qwen3-embedding-0.6b-mxfp8",
-    description:
-      "Alibaba Qwen3-Embedding 0.6B (mxfp8) — small, fast, multilingual; high-precision FP8 weights.",
-    is_online: false,
-    is_enconvo_cloud: false,
-    is_bring_your_own_key: false,
-    supports_streaming: false,
-    dimension: 1024,
-    context: 32768,
-    download_size: "600 MB",
-  },
-  {
     title: "Qwen3-Embedding 4B (4bit DWQ)",
     value: "mlx-community/Qwen3-Embedding-4B-4bit-DWQ",
     id: "mlx-qwen3-embedding-4b-4bit-dwq",
@@ -42,6 +28,20 @@ export const qwen3EmbeddingModels = [
     dimension: 2560,
     context: 32768,
     download_size: "2.1 GB",
+  },
+  {
+    title: "Qwen3-Embedding 0.6B (mxfp8)",
+    value: "mlx-community/Qwen3-Embedding-0.6B-mxfp8",
+    id: "mlx-qwen3-embedding-0.6b-mxfp8",
+    description:
+      "Alibaba Qwen3-Embedding 0.6B (mxfp8) — small, fast, multilingual; high-precision FP8 weights.",
+    is_online: false,
+    is_enconvo_cloud: false,
+    is_bring_your_own_key: false,
+    supports_streaming: false,
+    dimension: 1024,
+    context: 32768,
+    download_size: "600 MB",
   },
   {
     title: "Qwen3-Embedding 8B (4bit DWQ)",
