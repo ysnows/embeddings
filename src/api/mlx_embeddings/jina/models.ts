@@ -14,7 +14,7 @@ export const jinaEmbeddingsModels = [
     dimension: 1024,
     context: 8192,
     download_size: "1.3 GB",
-  },
+  }
 ];
 
 async function fetchModels(

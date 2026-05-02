@@ -266,6 +266,37 @@
       "private": true
     },
     {
+      "name": "minilm-mlx",
+      "title": "MiniLM (mlx)",
+      "description": "Local on-device embeddings using [all-MiniLM-L6-v2](https://huggingface.co/mlx-community/all-MiniLM-L6-v2-4bit) on Apple Silicon — tiny 384-dim English text embeddings, runs entirely offline through the `mlx_manage` extension. The model is pulled from HuggingFace on first use.",
+      "icon": "icon.png",
+      "commandType": "provider",
+      "provider_category": "embeddings",
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "modelName",
+          "description": "Pick an all-MiniLM variant. 4bit is the fastest local inference option.",
+          "type": "dropdown",
+          "style": "mlx-embedding",
+          "required": false,
+          "title": "Model",
+          "default": "mlx-community/all-MiniLM-L6-v2-4bit",
+          "dataProxy": "embeddings/mlx_embeddings/minilm/models"
+        },
+        {
+          "name": "concurrency",
+          "visibility": "hidden",
+          "description": "Number of concurrent embeddings. Local MLX runs sequentially per-process — keep low.",
+          "type": "number",
+          "required": false,
+          "title": "Concurrency",
+          "default": 1
+        }
+      ],
+      "private": true
+    },
+    {
       "name": "siliconflow",
       "title": "SiliconFlow",
       "description": "Embedding with [SiliconFlow](https://siliconflow.cn)",

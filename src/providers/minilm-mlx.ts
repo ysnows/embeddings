@@ -1,0 +1,60 @@
+import { EmbeddingsProvider, NativeAPI } from "@enconvo/api";
+
+const DEFAULT_MODEL = "mlx-community/all-MiniLM-L6-v2-4bit";
+
+export default function main(options: EmbeddingsProvider.EmbeddingsOptions) {
+  return new MiniLMEmbeddingsProvider({ options });
+}
+
+export class MiniLMEmbeddingsProvider extends EmbeddingsProvider {
+  constructor(params: { options: EmbeddingsProvider.EmbeddingsOptions }) {
+    super(params);
+  }
+
+  async preload(): Promise<void> {
+    const opts = this.options as EmbeddingsProvider.EmbeddingsOptions & {
+      modelName?: { value: string };
+    };
+    const modelId = opts.modelName?.value || DEFAULT_MODEL;
+    await NativeAPI.localApi("mlx_manage/model/load", {
+      model_id: modelId,
+      category: "embedding",
+    }).catch(() => undefined);
+  }
+
+  protected async _embed(
+    input: string[],
+    _?: EmbeddingsProvider.EmbeddingsOptions
+  ): Promise<number[][]> {
+    const opts = this.options as EmbeddingsProvider.EmbeddingsOptions & {
+      modelName?: { value: string };
+      batch_size?: number;
+    };
+    const modelId = opts.modelName?.value || DEFAULT_MODEL;
+
+    const body: Record<string, unknown> = {
+      hf_model_id: modelId,
+      text: input,
+    };
+    if (typeof opts.batch_size === "number") body.batch_size = opts.batch_size;
+
+    const resp = await NativeAPI.localApi("mlx_manage/mlx_embeddings/embed", body);
+
+    if (!resp.ok) {
+      const errText = await resp.text().catch(() => resp.statusText);
+      throw new Error(
+        `MLX MiniLM Embeddings request failed (${resp.status}): ${errText}`
+      );
+    }
+
+    const data = (await resp.json()) as {
+      embeddings?: number[][];
+    };
+    if (!data.embeddings || !Array.isArray(data.embeddings)) {
+      throw new Error(
+        "MLX MiniLM Embeddings: malformed response — missing 'embeddings' array"
+      );
+    }
+    return data.embeddings;
+  }
+}
