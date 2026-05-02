@@ -6,18 +6,8 @@
     "routePath": "embeddings/embed",
     "parameters": {
       "type": "object",
-      "properties": {
-        "input": {
-          "type": [
-            "string",
-            "array"
-          ],
-          "description": "Input text to embed — a single string or an array of strings for batch embedding"
-        }
-      },
-      "required": [
-        "input"
-      ]
+      "properties": {},
+      "required": []
     }
   },
   {

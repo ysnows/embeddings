@@ -28,13 +28,17 @@ export class Qwen3EmbeddingsProvider extends EmbeddingsProvider {
   ): Promise<number[][]> {
     const opts = this.options as EmbeddingsProvider.EmbeddingsOptions & {
       modelName?: { value: string };
+      batch_size?: number;
     };
     const modelId = opts.modelName?.value || DEFAULT_MODEL;
 
-    const resp = await NativeAPI.localApi("mlx_manage/mlx_embeddings/embed", {
+    const body: Record<string, unknown> = {
       hf_model_id: modelId,
       text: input,
-    });
+    };
+    if (typeof opts.batch_size === "number") body.batch_size = opts.batch_size;
+
+    const resp = await NativeAPI.localApi("mlx_manage/mlx_embeddings/embed", body);
 
     if (!resp.ok) {
       const errText = await resp.text().catch(() => resp.statusText);
