@@ -2,6 +2,20 @@ import { ListCache, RequestOptions } from "@enconvo/api";
 
 export const jinaEmbeddingsModels = [
   {
+    title: "Jina Embeddings v5 Text Nano",
+    value: "jinaai/jina-embeddings-v5-text-nano-mlx",
+    id: "jina-embeddings-v5-text-nano-mlx",
+    description:
+      "Jina Embeddings v5 Text Nano — ultra-compact multilingual text embedding model, fastest local inference on Apple Silicon.",
+    is_online: false,
+    is_enconvo_cloud: false,
+    is_bring_your_own_key: false,
+    supports_streaming: false,
+    dimension: 768,
+    context: 8192,
+    download_size: "472 MB",
+  },
+  {
     title: "Jina Embeddings v5 Text Small",
     value: "jinaai/jina-embeddings-v5-text-small-mlx",
     id: "jina-embeddings-v5-text-small-mlx",
