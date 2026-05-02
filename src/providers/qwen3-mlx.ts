@@ -49,7 +49,17 @@ export class Qwen3EmbeddingsProvider extends EmbeddingsProvider {
 
     const data = (await resp.json()) as {
       embeddings?: number[][];
+      status?: "loading" | "unloaded";
     };
+
+    // Local model isn't ready — the Python side has kicked off a load (or
+    // one was already in progress). Fall back to the cloud provider so the
+    // caller still gets embeddings without blocking on the load.
+    if (data.status === "loading" || data.status === "unloaded") {
+      const cloud = await EmbeddingsProvider.create("enconvo_ai");
+      return cloud.embed(input);
+    }
+
     if (!data.embeddings || !Array.isArray(data.embeddings)) {
       throw new Error(
         "MLX Qwen3 embeddings: malformed response — missing 'embeddings' array"
