@@ -13,6 +13,37 @@
   "type": "module",
   "commands": [
     {
+      "name": "embeddinggemma-mlx",
+      "title": "Gemma (mlx)",
+      "description": "Local on-device embeddings using [EmbeddingGemma](https://huggingface.co/google/embeddinggemma-300m) on Apple Silicon — runs entirely offline through the `mlx_manage` extension. Compact 300M multilingual model. The model is pulled from HuggingFace on first use.",
+      "icon": "embeddinggemma.png",
+      "commandType": "provider",
+      "provider_category": "embeddings",
+      "mode": "no-view",
+      "preferences": [
+        {
+          "name": "modelName",
+          "description": "Pick an EmbeddingGemma variant. 4bit for fastest local inference, 8bit for balanced quality/speed.",
+          "type": "dropdown",
+          "style": "mlx-embedding",
+          "required": false,
+          "title": "Model",
+          "default": "mlx-community/embeddinggemma-300m-4bit",
+          "dataProxy": "embeddings/mlx_embeddings/embeddinggemma/models"
+        },
+        {
+          "name": "concurrency",
+          "visibility": "hidden",
+          "description": "Number of concurrent embeddings. Local MLX runs sequentially per-process — keep low.",
+          "type": "number",
+          "required": false,
+          "title": "Concurrency",
+          "default": 1
+        }
+      ],
+      "private": true
+    },
+    {
       "name": "enconvo_ai",
       "title": "EnConvo Cloud Plan",
       "description": "Embedding with Enconvo Cloud Plan , learn more : [docs](https://docs.enconvo.com/docs/providers/embedding)",
@@ -204,37 +235,6 @@
       "private": true
     },
     {
-      "name": "embeddinggemma-mlx",
-      "title": "Gemma (mlx)",
-      "description": "Local on-device embeddings using [EmbeddingGemma](https://huggingface.co/google/embeddinggemma-300m) on Apple Silicon — runs entirely offline through the `mlx_manage` extension. Compact 300M multilingual model. The model is pulled from HuggingFace on first use.",
-      "icon": "embeddinggemma.png",
-      "commandType": "provider",
-      "provider_category": "embeddings",
-      "mode": "no-view",
-      "preferences": [
-        {
-          "name": "modelName",
-          "description": "Pick an EmbeddingGemma variant. 4bit for fastest local inference, 8bit for balanced quality/speed.",
-          "type": "dropdown",
-          "style": "mlx-embedding",
-          "required": false,
-          "title": "Model",
-          "default": "mlx-community/embeddinggemma-300m-4bit",
-          "dataProxy": "embeddings/mlx_embeddings/embeddinggemma/models"
-        },
-        {
-          "name": "concurrency",
-          "visibility": "hidden",
-          "description": "Number of concurrent embeddings. Local MLX runs sequentially per-process — keep low.",
-          "type": "number",
-          "required": false,
-          "title": "Concurrency",
-          "default": 1
-        }
-      ],
-      "private": true
-    },
-    {
       "name": "jina-mlx",
       "title": "Jina (mlx)",
       "description": "Local on-device embeddings using [Jina Embeddings v5](https://huggingface.co/jinaai) on Apple Silicon — runs entirely offline through the `mlx_manage` extension. Multilingual text embeddings. The model is pulled from HuggingFace on first use.",
@@ -344,8 +344,9 @@
   ],
   "dependencies": {
     "@enconvo/api": "link:../../enconvo.nodejs/enconvo_api",
-    "openai": "^4.86.1",
-    "ollama": "^0.5.18"
+    "axios": "^1.15.2",
+    "ollama": "^0.5.18",
+    "openai": "^4.86.1"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",

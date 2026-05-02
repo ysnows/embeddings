@@ -174,6 +174,17 @@ export const embeddingsEnconvoAiModels = [
     "is_online": true,
     "is_enconvo_cloud": true,
     "is_bring_your_own_key": false
+  },
+  {
+    "title": "Google EmbeddingGemma 300m (free)",
+    "value": "cloudflare/@cf/google/embeddinggemma-300m",
+    "id": "enconvo-cloudflare-embeddinggemma-300m",
+    "description": "Google EmbeddingGemma 300M — compact multilingual (100+ languages) text embeddings via Cloudflare Workers AI on the Enconvo Cloud Plan.",
+    "dimension": 768,
+    "context": 2048,
+    "is_online": true,
+    "is_enconvo_cloud": true,
+    "is_bring_your_own_key": false
   }
 ];
 
