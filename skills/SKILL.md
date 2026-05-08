@@ -4,7 +4,7 @@ description: >
   Embedding provider integrations for OpenAI, Voyage AI, Ollama, SiliconFlow, and Enconvo Cloud Plan, with model management APIs.
 metadata:
   author: EnconvoAI
-  version: "1.0.12"
+  version: "1.0.20"
 ---
 
 ## API Reference

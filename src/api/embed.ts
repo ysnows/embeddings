@@ -53,8 +53,9 @@ export default async function main(_req: Request) {
   const result = await loadPdfCached(PDF_PATH)
   console.log(`loaded ${result.pages.length} pages`)
 
-  // const inputs = ['hello']
-  const inputs = result.pages.map((page) => page.content || "")
+  const inputs = ['hello']
+
+  // const inputs = result.pages.map((page) => page.content || "")
   const totalChars = inputs.reduce((n, s) => n + s.length, 0)
   console.log(
     `${inputs.length} page inputs (${totalChars} chars total)`,
@@ -74,7 +75,7 @@ export default async function main(_req: Request) {
     console.time(label)
     const vecs = await provider.embed(batch)
     embeddings.push(...vecs)
-    await new Promise((resolve) => setTimeout(resolve, 250))
+    // await new Promise((resolve) => setTimeout(resolve, 250))
     console.timeEnd(label)
 
   }
